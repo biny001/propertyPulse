@@ -1,4 +1,6 @@
 import "@/assets/styles/globals.css";
+import Footer from "@/components/Footer";
+import Navbar from "@/components/Navbar";
 
 //for seo optimization
 export const metadata = {
@@ -11,7 +13,10 @@ const MainLayout = ({ children }) => {
   return (
     <html lang="en">
       <body>
-        <div>{children}</div>
+        <Navbar />
+
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
