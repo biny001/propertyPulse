@@ -5,7 +5,10 @@ import { fetchProperties } from '@/utils/requests';
 const HomeProperties = async () => {
   const data = await fetchProperties();
 
-  const recentProperties = data.properties
+  // Handle case where data is an empty array (API failure)
+  const properties = data?.properties || [];
+  
+  const recentProperties = properties
     .sort(() => Math.random() - Math.random())
     .slice(0, 3);
 

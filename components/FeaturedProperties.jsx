@@ -2,12 +2,15 @@ import { fetchProperties } from '@/utils/requests';
 import FeaturedPropertyCard from './FeaturedPropertyCard';
 
 const FeaturedProperties = async () => {
-  const properties = await fetchProperties({
+  const data = await fetchProperties({
     showFeatured: true,
   });
 
+  // Handle case where data is an empty array (API failure)
+  const properties = data?.properties || [];
+
   return (
-    properties.length > 0 && (
+    properties?.length > 0 && (
       <section className='bg-blue-50 px-4 pt-6 pb-10'>
         <div className='container-xl lg:container m-auto'>
           <h2 className='text-3xl font-bold text-blue-500 mb-6 text-center'>
