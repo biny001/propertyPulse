@@ -1,4 +1,15 @@
-const apiDomain = process.env.NEXT_PUBLIC_API_DOMAIN || null;
+// Get the API domain based on environment
+const getApiDomain = () => {
+  // In development, use localhost
+  if (process.env.NODE_ENV === 'development') {
+    return 'http://localhost:3000';
+  }
+  
+  // In production, use the same domain or a custom one
+  return process.env.NEXT_PUBLIC_API_DOMAIN || '';
+};
+
+const apiDomain = getApiDomain();
 
 // Fetch all properties
 async function fetchProperties({ showFeatured = false } = {}) {
@@ -9,7 +20,7 @@ async function fetchProperties({ showFeatured = false } = {}) {
     }
 
     const res = await fetch(
-      `${apiDomain}/properties${showFeatured ? '/featured' : ''}`,
+      `${apiDomain}/api/properties${showFeatured ? '/featured' : ''}`,
       { cache: 'no-store' }
     );
 
@@ -32,7 +43,7 @@ async function fetchProperty(id) {
       return null;
     }
 
-    const res = await fetch(`${apiDomain}/properties/${id}`);
+    const res = await fetch(`${apiDomain}/api/properties/${id}`);
 
     if (!res.ok) {
       throw new Error('Failed to fetch data');
